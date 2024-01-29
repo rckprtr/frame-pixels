@@ -27,9 +27,6 @@ const BASE_URL = process.env['BASE_URL'] || "https://frame-pixels.vercel.app";
 async function getResponse(req: NextRequest): Promise<NextResponse> {
 
   const route = req.nextUrl.searchParams.get('route');
-  console.log('searchParams', route);
-
-
   const body = await req.json()
 
   let payload = body.untrustedData;
@@ -92,8 +89,21 @@ function setup(): FrameUI {
 
   let coordsPage = new FramePage('coords');
 
-  coordsPage.addButton(new FrameButton(1, '(0,0)', (page: FramePage, state: State) => {
-    state.user.setCoords(0, 0);
+  coordsPage.addButton(new FrameButton(1, '(-1,-1)', (page: FramePage, state: State) => {
+
+    let user = state.user;
+    let coords = user.settings.coords;
+    let x = coords.x -1;
+    let y = coords.y - 1;
+
+    if(x <= 0){
+      x = 0;
+    }
+
+    if(y <= 0){
+      y = 0;
+    }
+    user.setCoords(x, y);
   }))
     .addButton(new FrameButton(2, '➡️', (page: FramePage, state: State) => {
 
