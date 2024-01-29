@@ -1,7 +1,5 @@
 import { kv } from "@vercel/kv";
-
-const MAP_WIDTH = 120;
-const MAP_HEIGHT = 60;
+import { MAP_HEIGHT, MAP_WIDTH } from "./constants";
 
 function kvFid(fid: string) {
     return `user:${fid}`;
@@ -105,7 +103,7 @@ export async function getMap(): Promise<Map> {
 
     if (!mapObj) {
         console.log('Creating new map');
-        let newMap = new Map(120, 60, 5);
+        let newMap = new Map(MAP_WIDTH, MAP_HEIGHT, 5);
         await kv.set(kvMap(), JSON.stringify(newMap));
         return newMap;
     }
