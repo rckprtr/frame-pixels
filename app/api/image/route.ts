@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Jimp from 'jimp';
 import { Point2D, getMap, getUser } from '../../lib';
+import { MAP_HEIGHT, MAP_WIDTH } from '../../constants';
 
 
 export async function GET(req: NextRequest): Promise<NextResponse>  {
@@ -25,8 +26,8 @@ export async function GET(req: NextRequest): Promise<NextResponse>  {
         userPoint = user.settings.coords;
     }
 
-    let grid_width = 120;
-    let grid_height = 60;
+    let grid_width = MAP_WIDTH;
+    let grid_height = MAP_HEIGHT;
     let grid_multiplier = 5;
 
     //create grid
