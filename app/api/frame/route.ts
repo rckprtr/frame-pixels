@@ -89,11 +89,11 @@ function setup(): FrameUI {
 
   let coordsPage = new FramePage('coords');
 
-  coordsPage.addButton(new FrameButton(1, '(-1,-1)', (page: FramePage, state: State) => {
+  coordsPage.addButton(new FrameButton(1, '↖️', (page: FramePage, state: State) => {
 
     let user = state.user;
     let coords = user.settings.coords;
-    let x = coords.x -1;
+    let x = coords.x - 1;
     let y = coords.y - 1;
 
     if(x <= 0){

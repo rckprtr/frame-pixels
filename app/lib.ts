@@ -1,6 +1,7 @@
 import { kv } from "@vercel/kv";
 
-
+const MAP_WIDTH = 120;
+const MAP_HEIGHT = 60;
 
 function kvFid(fid: string) {
     return `user:${fid}`;
@@ -24,13 +25,13 @@ export async function getUser(fid: string): Promise<User> {
 
     if (!userObj) {
         console.log('Creating new user:', fid);
-        let userSettings = new UserSettings(new Point2D(0, 0), 1);
+        let userSettings = new UserSettings(new Point2D(MAP_WIDTH / 2, MAP_HEIGHT / 2), 1);
         let newUser = new User(fid, userSettings);
         await kv.set(kvFid(fid), JSON.stringify(newUser));
         return newUser;
     }
     let userSettings = new UserSettings(
-        new Point2D(userObj.settings.coords.x, userObj.settings.coords.y), 
+        new Point2D(userObj.settings.coords.x, userObj.settings.coords.y),
         userObj.settings.color
     );
     let user = new User(userObj.fid, userSettings);
@@ -102,7 +103,7 @@ export class Point2D {
 export async function getMap(): Promise<Map> {
     let mapObj = await kv.get<Map>(kvMap());
 
-    if(!mapObj) {
+    if (!mapObj) {
         console.log('Creating new map');
         let newMap = new Map(120, 60, 5);
         await kv.set(kvMap(), JSON.stringify(newMap));
@@ -136,7 +137,7 @@ export class Map {
     isOutOfBounds(x: number, y: number) {
         return x < 0 || x >= this.width || y < 0 || y >= this.height;
     }
-    
+
 
     setPixel(x: number, y: number, color: number) {
         this.grid[y][x] = color;
