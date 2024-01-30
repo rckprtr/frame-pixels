@@ -1,7 +1,7 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
 
-const BASE_URL = process.env['BASE_URL'] || "https://frame-pixels.vercel.app";
+const BASE_URL = process.env['BASE_URL'] || "https://frame-pixels-6dnm.vercel.app";
 
 const frameMetadata = getFrameMetadata({
   buttons: ['start'],
