@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSSLHubRpcClient, Message } from "@farcaster/hub-nodejs";
-import { kv } from "@vercel/kv";
 import { State, User, getMap, getUser } from '../../lib';
 
 const HUB_URL = process.env['HUB_URL'] || "nemes.farcaster.xyz:2283"
 const client = getSSLHubRpcClient(HUB_URL);
-const BASE_URL = process.env['BASE_URL'] || "https://frame-pixels.vercel.app";
+const BASE_URL = process.env['BASE_URL'] || "https://frame-pixels-6dnm.vercel.app";
 
 /*
 
@@ -29,13 +28,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const route = req.nextUrl.searchParams.get('route');
   const body = await req.json()
 
-  let payload = body.untrustedData;
+  console.log('body-debug', body);
 
-  let data = {
-    body: body,
-    route: route,
-    targetButton: payload.buttonIndex,
-  }
+  let payload = body.untrustedData;
 
   let fid = payload.fid;
   let buttonIndex = payload.buttonIndex;
@@ -82,7 +77,7 @@ function setup(): FrameUI {
   frameUI.addPage(startPage);
 
   let homePage = new FramePage('home');
-  homePage.addButton(new RouteButton(1, 'coords', 'coords'))
+  homePage.addButton(new RouteButton(1, 'move', 'coords'))
     .addButton(new RouteButton(2, 'paint', 'paint'));
 
   frameUI.addPage(homePage);
