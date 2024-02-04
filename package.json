@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@coinbase/onchainkit": "^0.1.6",
+    "@farcaster/core": "^0.13.7",
     "@farcaster/hub-nodejs": "^0.10.21",
     "@vercel/kv": "^1.0.1",
     "jimp": "^0.22.10",

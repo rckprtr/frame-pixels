@@ -2,33 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSSLHubRpcClient, Message } from "@farcaster/hub-nodejs";
 import { State, User, getMap, getUser } from '../../lib';
 
+
 const HUB_URL = process.env['HUB_URL'] || "nemes.farcaster.xyz:2283"
 const client = getSSLHubRpcClient(HUB_URL);
 const BASE_URL = process.env['BASE_URL'] || "https://frame-pixels-6dnm.vercel.app";
-
-/*
-
-  start
-    coords
-      0,0
-      ➡️
-      Down
-      home
-    paint
-      pruple
-      white
-      paint
-      home
-*/
-
 
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
 
   const route = req.nextUrl.searchParams.get('route');
   const body = await req.json()
-
-  console.log('body-debug', body);
 
   let payload = body.untrustedData;
 
@@ -185,7 +168,6 @@ class FrameUI {
     if (route) {
       return route.page;
     }
-    console.log('getPage', path);
     return undefined;
   }
 
