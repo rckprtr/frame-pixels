@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  console.log('frame-pixels.xyz paint for farcaster frames');
   return (
     <>
       <h1>frame-pixels.xyz paint for farcaster frames</h1>

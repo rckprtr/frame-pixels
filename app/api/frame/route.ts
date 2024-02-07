@@ -36,8 +36,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
   if (currentPage) {
     return new NextResponse(`<!DOCTYPE html><html><head>
-    <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${BASE_URL}/api/image?cache=${currentTime}&fid=${fid}" />
+    <meta name="fc:frame" content="vNext" />
+    <meta name="fc:frame:image" content="${BASE_URL}/api/image?cache=${currentTime}&fid=${fid}" />
     ${currentPage.rendertMetaTags(state)}
   </head></html>`);
   } else {
@@ -47,6 +47,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<Response> {
   return getResponse(req);
+}
+
+export async function OPTIONS(req: NextRequest): Promise<Response> {
+  return new NextResponse('OK', { status: 200 });
 }
 
 export const dynamic = 'force-dynamic';
@@ -201,7 +205,7 @@ class FramePage {
 
   rendertMetaTags(state: State) {
     let metaTags = this.buttons.map(button => button.rendertMetaTags(state));
-    metaTags.push(`<meta property="fc:frame:post_url" content="${BASE_URL}/api/frame?route=${this.path}" />`);
+    metaTags.push(`<meta name="fc:frame:post_url" content="${BASE_URL}/api/frame?route=${this.path}" />`);
     return metaTags.join('\n');
   }
 
@@ -234,7 +238,7 @@ class FrameButton {
   }
 
   rendertMetaTags(state: State) {
-    return `<meta property="fc:frame:button:${this.id}" content="${this.label}" />`;
+    return `<meta name="fc:frame:button:${this.id}" content="${this.label}" />`;
   }
 }
 
@@ -253,7 +257,7 @@ class ColorPickerButton extends FrameButton {
     if(this.label === '⬜' && color === 2){
       label = '* ⬜';
     }
-    return `<meta property="fc:frame:button:${this.id}" content="${label}" />`;
+    return `<meta name="fc:frame:button:${this.id}" content="${label}" />`;
   }
 }
 
